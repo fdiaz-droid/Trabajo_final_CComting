@@ -61,15 +61,12 @@ curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json"
 }
 ```
 
-## 5) Pruebas rápidas
-```bash
-pytest -q
+## 5) Resultados Esperados
+```json
+{
+  "predictions": ["setosa"],
+  "proba": [[0.99, 0.01, 0.00]]
+}
 ```
 
-## 6) Docker (listo para Cloud Run/Render/Fly.io)
-Construir y ejecutar localmente:
-```bash
-docker build -t iris-api .
-docker run -p 8080:8080 iris-api
-```
-La API quedará en `http://127.0.0.1:8080`.
+
