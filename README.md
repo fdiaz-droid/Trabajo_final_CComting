@@ -1,72 +1,43 @@
-# Trabajo Final – FastAPI + ML (Iris Demo)
-
-**Repo:** https://github.com/fdiaz-droid/Trabajo_final_CComting
+# Informe – Trabajo Final (FastAPI + ML)
 
 ## Integrantes
 - Frank Díaz
 - Braian Escobar
 
----
+## 1. Datos
+- Fuente: Iris (scikit-learn)
+- Variables: 4 numéricas (sepal_length, sepal_width, petal_length, petal_width)
+- Target: especie (`setosa`, `versicolor`, `virginica`)
 
-## Descripción
-API en **FastAPI** que sirve un modelo de **clasificación** entrenado con el dataset **Iris**.  
-El endpoint `/predict` recibe vectores de **4 features numéricas** (largo/ancho de sépalo y pétalo) y devuelve la **clase** más probable: `setosa`, `versicolor` o `virginica`.
+## 2. Preparación
+- Sin nulos en Iris. Normalización con `StandardScaler` dentro del pipeline.
 
-> Este proyecto funciona como **plantilla**: puedes reemplazar el dataset/algoritmo en `train.py` y mantener la misma API.
+## 3. Modelo
+- Pipeline: `StandardScaler` + `LogisticRegression` (multiclase, softmax)
+- Justificación: baseline simple, reproducible y rápido para demo y despliegue.
 
-## Estructura
+## 4. Validación y Métricas (test)
+- Split: 80/20, `random_state=42`, `stratify=y`
+- **Accuracy**: __COMPLETAR__  
+- (Ver `evidencias/metricas_test.txt` y `evidencias/matriz_confusion.png`)
 
-```
+## 5. API FastAPI
+- Endpoints: `GET /health`, `POST /predict`
+- Entrada: lista de filas, cada una con 4 floats (orden del entrenamiento)
+- Salida: `predictions` y (opcional) `proba`
+- Evidencias: ver `evidencias/api_docs.png` y `evidencias/predict_ok.png`
 
-├─ app/
-│  └─ main.py
-├─ model/
-│  └─ model.pkl
-├─ tests/
-│  └─ test_app.py
-├─ requirements.txt
-├─ train.py
-├─ example_request.json
-├─ Dockerfile
-└─ README.md
-```
+## 6. Decisiones y Supuestos
+- Consistencia del orden de features entre entrenamiento e inferencia
+- Mapeo de índices a texto con `target_names` guardado en el artefacto
 
-## 1) Crear entorno e instalar dependencias
-```bash
-python -m venv .venv
+## 7. Limitaciones y Próximos Pasos
+- Dataset demo; para caso real: reemplazar datos y objetivo, validar con métricas acordes
+- Explorar otros modelos (RF/XGBoost), validación k-fold, tuning
 
-.venv\Scripts\activate
+## 8. Repositorio
+- Público: https://github.com/fdiaz-droid/Trabajo_final_CComting
+- Contiene código, `model.pkl`, `requirements.txt`, `README.md` y evidencias
 
-pip install -r requirements.txt
-```
-
-## 3) Ejecutar la API
-```bash
-uvicorn app.main:app --reload
-```
-Link local:
-http://127.0.0.1:8000/docs
-
-
-## 4) Ejemplo de request
-```bash
-curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d @example_request.json
-```
-
-**`example_request.json`**
-```json
-{
-  "features": [[5.1, 3.5, 1.4, 0.2], [6.7, 3.1, 4.7, 1.5]],
-  "return_proba": true
-}
-```
-
-## 5) Resultados Esperados
-```json
-{
-  "predictions": ["setosa"],
-  "proba": [[0.99, 0.01, 0.00]]
-}
-```
 
 
