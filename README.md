@@ -39,5 +39,11 @@
 - Público: https://github.com/fdiaz-droid/Trabajo_final_CComting
 - Contiene código, `model.pkl`, `requirements.txt`, `README.md` y evidencias
 
+## Evidencias
+![Swagger /docs](Evidencias/Api_docs.png)
+![/predict 200 OK](Evidencias/Predict_ok.png)
+
+<!-- opcional -->
+![Log del servidor (uvicorn)](Evidencias/Log_Python_server.png)
 
 
