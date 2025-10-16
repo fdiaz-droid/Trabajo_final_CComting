@@ -18,7 +18,7 @@
 
 ## 4. Validación y Métricas (test)
 - Split 80/20, `random_state=42`, `stratify=y`
-- **Accuracy**: __COMPLETAR__
+- **Accuracy**: 0.9333
 - Ver `evidencias/metricas_test.txt` y `evidencias/matriz_confusion.png`.
 
 ## 5. API FastAPI
